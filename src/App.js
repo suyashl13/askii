@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import MNavbar from './components/MNavbar';
+import AnswerPage from './pages/AnswerPage';
+import AuthenticationPage from './pages/AuthenticationPage';
+import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
+import { loginCtx } from './contexts/LoginCtx';
+import "./App.css"
+import ViewQuestion from './pages/ViewQuestion';
+
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <loginCtx.Provider value={
+      {
+        isLoggedIn, setIsLoggedIn
+      }
+    }>
+      <Router>
+      <MNavbar/>
+      <Switch>
+        <Route path="/" exact component={HomePage}/>
+        <Route exact path="/auth" component={AuthenticationPage} />
+        <Route exact path="/answer/:id" component={AnswerPage} />
+        <Route exact path="/question_info/:id" component={ViewQuestion} />
+        <Route path="" component={NotFoundPage} />
+      </Switch>
+    </Router>
+    </loginCtx.Provider>
   );
 }
 
