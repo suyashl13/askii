@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, HashRouter } from 'react-router-dom'
 import MNavbar from './components/MNavbar';
 import AnswerPage from './pages/AnswerPage';
 import AuthenticationPage from './pages/AuthenticationPage';
@@ -20,6 +20,7 @@ function App() {
         isLoggedIn, setIsLoggedIn
       }
     }>
+      <HashRouter>
       <Router>
       <MNavbar/>
       <Switch>
@@ -30,6 +31,7 @@ function App() {
         <Route path="" component={NotFoundPage} />
       </Switch>
     </Router>
+    </HashRouter>
     </loginCtx.Provider>
   );
 }
