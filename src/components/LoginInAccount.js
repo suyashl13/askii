@@ -1,15 +1,17 @@
 import Axios from 'axios';
 import React, { useContext, useState } from 'react'
 import { toast } from 'react-toastify';
-import { Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label } from 'reactstrap'
+import { Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Spinner } from 'reactstrap'
 import { loginCtx } from '../contexts/LoginCtx';
 import { baseURL } from '../env';
 
 export default function LoginInAccount() {
     const [credentials, setCredentials] = useState({email : "", password : ""})
     const authState = useContext(loginCtx)
+    const [isLoggingIn, setisLoggingIn] = useState(false)
 
     const performLogin = async () => {
+      setisLoggingIn(true)
         const formData = new FormData();
         formData.append('email', credentials.email)
         formData.append('password', credentials.password)
@@ -17,6 +19,7 @@ export default function LoginInAccount() {
             baseURL + "users/signin/",
             formData
           ).catch(e=> {
+            setisLoggingIn(false)
             localStorage.clear()
             console.error(e)
           })
@@ -29,6 +32,7 @@ export default function LoginInAccount() {
                 localStorage.setItem('email', e.data.user.email)
                 authState.setIsLoggedIn(true)
               } else {
+                setisLoggingIn(false)
                 toast("Provide valid credential or try " +
                 "re-logging in", {
                   type : "error",
@@ -48,7 +52,10 @@ export default function LoginInAccount() {
       setCredentials({...credentials, "password" : e.target.value})
     }
 
-    return (
+    if (isLoggingIn) {
+      return <center style={{marginTop : "40%"}}><Spinner/><br/>Logging In..</center>
+    } else {
+      return (
         <Card className="mt-4">
         <CardTitle className="mt-4">
             <center style={{"fontWeight": "bold", "fontSize": "28px"}}>Login</center>
@@ -70,4 +77,5 @@ export default function LoginInAccount() {
       </CardBody>
       </Card>
     )
+    }
 }
