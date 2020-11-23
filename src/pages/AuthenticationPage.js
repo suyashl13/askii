@@ -28,7 +28,7 @@ export default function AuthenticationPage() {
     }}>Lets get started...<br/></center>
     <center>
         <Row>
-          <Col className="col-6"><Button onClick={()=>{setisLoginPage(true)}} className="btn-block">Login</Button></Col>
+          <Col className="col-6"><Button onClick={()=>{setisLoginPage(true)}} className="btn-block" >Login</Button></Col>
           <Col className="col-6"><Button onClick={()=>{setisLoginPage(false)}} className="btn-block">Signup</Button></Col>
         </Row>
     </center>

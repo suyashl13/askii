@@ -92,7 +92,7 @@ export default function QuestionList() {
                                     </div>
                                 </ListGroupItemHeading>
                                 </Col>
-                                <Col className="col-2">
+                                <Col className="col-md-2 col-sm-6">
                                     <Link to={"/question_info/"+element.id} className="btn btn-dark btn-block">
                                         Question details
                                     </Link>
