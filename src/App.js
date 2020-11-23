@@ -20,7 +20,6 @@ function App() {
         isLoggedIn, setIsLoggedIn
       }
     }>
-      <HashRouter>
       <Router>
       <MNavbar/>
       <Switch>
@@ -31,7 +30,6 @@ function App() {
         <Route path="" component={NotFoundPage} />
       </Switch>
     </Router>
-    </HashRouter>
     </loginCtx.Provider>
   );
 }
