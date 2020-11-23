@@ -7,7 +7,6 @@ import QuestionList from '../components/QuestionList'
 export default function HomePage() {
     const [isQuestionComp, setIsQuestionComp] = useState(true)
 
-
     if (!!!localStorage.getItem('token')) {
         return <Redirect to="/auth"/>
     } else {

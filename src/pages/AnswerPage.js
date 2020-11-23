@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Button, Card, Container, Input, Jumbotron } from 'reactstrap'
+import { Button, Card, Container, Input, Jumbotron, Spinner } from 'reactstrap'
 import { baseURL } from '../env';
 
 export default function AnswerPage(props) {
@@ -10,6 +10,7 @@ export default function AnswerPage(props) {
     const [question, setQuestion] = useState({})
     const [isAnswered, setIsAnswered] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false)
+    const [isLoading, setisLoading] = useState(true)
 
     useEffect(() => {
         getQuestion(props.match.params.id)
@@ -20,6 +21,7 @@ export default function AnswerPage(props) {
             `${baseURL}askme/get_question_by_id/${localStorage.getItem('token')}/${q_id}/${localStorage.getItem('id')}/`
         ).then(
             res => {
+                setisLoading(false)
                 setQuestion(res.data)
             }
         ).catch(
@@ -49,7 +51,14 @@ export default function AnswerPage(props) {
         )
     }
 
-    if (!!localStorage.getItem('token')) {
+    if (isLoading) {
+        return <center>
+            <div style={{marginTop:"40%"}}>
+                <Spinner/><br/>
+                Loading
+            </div>
+        </center>
+    } else if (!!localStorage.getItem('token')) {
         // isAuthenticated
         if (!isAnswered) {
             return <Card className="m-5">

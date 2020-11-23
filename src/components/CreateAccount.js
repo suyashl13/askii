@@ -29,25 +29,17 @@ export default function CreateAccount() {
       e => {toast(
         "Successfully created an account.",
         {
-          type :"success"
+          type :"success",
+          autoClose: "500",
+          position: "bottom-center",
         }
-      )
-      if (!!e.data.token){
-        console.log(e.data)
-        localStorage.setItem('token', e.data.token)
-        localStorage.setItem('name', e.data.user.name)
-        localStorage.setItem('id', e.data.user.id)
-        localStorage.setItem('email', e.data.user.email)
-        authState.setIsLoggedIn(true)
-      } else {
-        toast("Provide valid credential or try " +
-        "re-logging in", {
-          type : "error",
+      );
+      toast("You may proceed to login now.", {
+          type : "info",
           autoClose: "500",
           position: "bottom-center",
         })
-        localStorage.clear()
-      }
+     
     }
     ).catch(
       e => {

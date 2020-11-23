@@ -1,11 +1,13 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Badge, Button, Card, Col, Container, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Toast, ToastBody, ToastHeader } from 'reactstrap'
+import { Badge, Button, Card, Col, Container, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Row, Spinner, Toast, ToastBody, ToastHeader } from 'reactstrap'
 import { baseURL, frontURL } from '../env'
 
 export default function QuestionList() {
     const [userQuestions, setuserQuestions] = useState([])
+    const [isLoading, setisLoading] = useState(true)
+
 
     useEffect(() => {
         getUserQuestions();
@@ -18,6 +20,7 @@ export default function QuestionList() {
         ).then(
             res => {
                 setuserQuestions(res.data)
+                setisLoading(false)
             }
         ).catch(
             err=>console.error(err)
@@ -53,7 +56,8 @@ export default function QuestionList() {
             </center>
             <ListGroup flush>
                 {
-                    userQuestions.map(
+                    isLoading ? <center className="m-4"><Spinner color="info"/><br/>Fetching</center>
+                    : userQuestions.map(
                         (element, index) =>
                         <ListGroupItem key={index}>
                             <Row>

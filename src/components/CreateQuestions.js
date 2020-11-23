@@ -42,7 +42,7 @@ export default function CreateQuestions() {
                 !!!response ? <Container>
                 <p style={{
                     paddingTop: "1rem"
-                }}>Hello, {localStorage.getItem('name')}</p>
+                }}>Ask it up !!</p>
                 <Input onChange={
                     (e)=>{
                         setquestion(e.target.value)
